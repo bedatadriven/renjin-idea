@@ -107,15 +107,15 @@ public class TestRunApplicationConfigurable extends SettingsEditor<TestRunConfig
   @Override
   protected void resetEditorFrom(TestRunConfiguration configuration) {
     myModuleSelector.reset(configuration);
-    myCommonProgramParameters.reset(configuration);
+   // myCommonProgramParameters.reset(configuration);
 
-    myMainClass.getComponent().setText(configuration.MAIN_CLASS_NAME);
+  //  myMainClass.getComponent().setText(configuration.MAIN_CLASS_NAME);
     myFeatureOrFolder.getComponent().setText(configuration.getFilePath());
   }
 
   @Override
   protected void applyEditorTo(TestRunConfiguration configuration) throws ConfigurationException {
-    myCommonProgramParameters.applyTo(configuration);
+    //myCommonProgramParameters.applyTo(configuration);
     myModuleSelector.applyTo(configuration);
 
     configuration.setFilePath(myFeatureOrFolder.getComponent().getText());

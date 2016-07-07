@@ -24,6 +24,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <configurationType implementation="org.renjin.idea.run.TestRunConfigurationType"/>
+    <fileTypeFactory implementation="org.renjin.idea.lang.RFileTypeFactory"/>
   </extensions>
 
   <actions>
