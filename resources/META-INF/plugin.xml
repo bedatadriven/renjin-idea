@@ -1,0 +1,33 @@
+<idea-plugin version="2">
+  <id>org.renjin.idea</id>
+  <name>Renjin</name>
+  <version>1.0</version>
+  <vendor email="info@bedatadriven.com" url="http://bedatadriven.com">BeDataDriven BV</vendor>
+
+  <description><![CDATA[
+      Plugin for Renjin and R.
+    ]]></description>
+
+  <change-notes><![CDATA[
+      Initial version.
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="141.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <configurationType implementation="org.renjin.idea.run.TestRunConfigurationType"/>
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>
