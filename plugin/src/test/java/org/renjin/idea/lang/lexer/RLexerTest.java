@@ -78,7 +78,14 @@ public class RLexerTest {
         }, true);
   }
 
-
+  @Test
+  public void testComplexNumber() {
+    testTokenization("3+4i", new IElementType[] {
+        R_NUM_CONST,
+        R_ARITH_PLUS,
+        R_NUM_CONST
+    }, true);
+  }
   
 
   @Test

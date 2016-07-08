@@ -55,8 +55,7 @@ Exponent = [eE] [+-]? [0-9]+
 FLit1    = [0-9]+ \. [0-9]*
 FLit2    = \. [0-9]+
 FLit3    = [0-9]+
-DoubleLiteral = ({FLit1}|{FLit2}|{FLit3}) {Exponent}?
-
+DoubleLiteral = ({FLit1}|{FLit2}|{FLit3}) {Exponent}?i?
 
 //StringCharacter = [^\r\n]
 // picked up from arc.flex :
