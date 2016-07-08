@@ -124,7 +124,7 @@ expr ::= EOL* (
     '~' expr |
     '?' expr |
     fundef |
-    IF cond expr_or_assign [ELSE expr_or_assign] |
+    IF cond expr_or_assign [EOL* ELSE expr_or_assign] |
     FOR forcond expr_or_assign |
     WHILE cond expr_or_assign |
     REPEAT expr_or_assign |

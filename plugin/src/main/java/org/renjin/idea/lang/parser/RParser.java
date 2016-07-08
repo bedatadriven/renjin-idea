@@ -158,7 +158,7 @@ public class RParser implements PsiParser, LightPsiParser {
   //     '~' expr |
   //     '?' expr |
   //     fundef |
-  //     IF cond expr_or_assign [ELSE expr_or_assign] |
+  //     IF cond expr_or_assign [EOL* ELSE expr_or_assign] |
   //     FOR forcond expr_or_assign |
   //     WHILE cond expr_or_assign |
   //     REPEAT expr_or_assign |
@@ -208,7 +208,7 @@ public class RParser implements PsiParser, LightPsiParser {
   //     '~' expr |
   //     '?' expr |
   //     fundef |
-  //     IF cond expr_or_assign [ELSE expr_or_assign] |
+  //     IF cond expr_or_assign [EOL* ELSE expr_or_assign] |
   //     FOR forcond expr_or_assign |
   //     WHILE cond expr_or_assign |
   //     REPEAT expr_or_assign |
@@ -352,7 +352,7 @@ public class RParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // IF cond expr_or_assign [ELSE expr_or_assign]
+  // IF cond expr_or_assign [EOL* ELSE expr_or_assign]
   private static boolean expr_1_14(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr_1_14")) return false;
     boolean r;
@@ -365,22 +365,35 @@ public class RParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [ELSE expr_or_assign]
+  // [EOL* ELSE expr_or_assign]
   private static boolean expr_1_14_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr_1_14_3")) return false;
     expr_1_14_3_0(b, l + 1);
     return true;
   }
 
-  // ELSE expr_or_assign
+  // EOL* ELSE expr_or_assign
   private static boolean expr_1_14_3_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr_1_14_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, R_ELSE);
+    r = expr_1_14_3_0_0(b, l + 1);
+    r = r && consumeToken(b, R_ELSE);
     r = r && expr_or_assign(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // EOL*
+  private static boolean expr_1_14_3_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expr_1_14_3_0_0")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!consumeToken(b, R_EOL)) break;
+      if (!empty_element_parsed_guard_(b, "expr_1_14_3_0_0", c)) break;
+      c = current_position_(b);
+    }
+    return true;
   }
 
   // FOR forcond expr_or_assign
