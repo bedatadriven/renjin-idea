@@ -28,6 +28,11 @@
     <fileTypeFactory implementation="org.renjin.idea.lang.RFileTypeFactory"/>
     <lang.parserDefinition language="R" implementationClass="org.renjin.idea.lang.RParserDefinition"/>
     
+    <lang.syntaxHighlighterFactory language="R" implementationClass="org.renjin.idea.editor.RSyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="org.renjin.idea.editor.RColorSettingsPage"/>
+    
+    <lang.commenter language="R" implementationClass="org.renjin.idea.editor.RCommenter"/>
+
     <!-- Running Tests -->
     <configurationType implementation="org.renjin.idea.run.TestRunConfigurationType"/>
     <runConfigurationProducer implementation="org.renjin.idea.run.TestRunConfigurationProducer"/>
