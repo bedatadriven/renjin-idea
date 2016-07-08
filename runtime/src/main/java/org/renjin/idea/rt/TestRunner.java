@@ -35,7 +35,11 @@ public class TestRunner {
       return;
     }
 
-    Session session = new SessionBuilder().build();
+    SessionBuilder builder = new SessionBuilder();
+    if(!defaultPackages.equals("base")) {
+      builder.withDefaultPackages();
+    }
+    Session session = builder.build();
     session.getTopLevelContext().evaluate(testScript);
     
     if(testFunction != null) {

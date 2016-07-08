@@ -8,9 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-/**
- * Created by alex on 8-7-16.
- */
+
 class TestRunConfigurationFactory extends ConfigurationFactoryEx {
   
   private TestRunConfigurationType testRunConfigurationType;

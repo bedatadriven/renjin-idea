@@ -5,6 +5,8 @@ import com.intellij.execution.*;
 import com.intellij.execution.configurations.*;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
+import com.intellij.execution.testframework.sm.runner.SMRunnerConsolePropertiesProvider;
+import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties;
 import com.intellij.execution.util.ScriptFileUtil;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
@@ -83,7 +85,7 @@ public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurat
     SettingsEditorGroup<TestRunConfiguration> group = new SettingsEditorGroup<>();
     group.addEditor(ExecutionBundle.message("run.configuration.configuration.tab.title"), new TestRunApplicationConfigurable(getProject()));
     JavaRunConfigurationExtensionManager.getInstance().appendEditors(this, group);
-    group.addEditor(ExecutionBundle.message("logs.tab.title"), new LogConfigurationPanel<>());
+    group.addEditor(ExecutionBundle.message("logs.tab.title"), new LogConfigurationPanel<TestRunConfiguration>());
     return group;
   }
 
@@ -110,17 +112,6 @@ public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurat
       protected OSProcessHandler startProcess() throws ExecutionException {
         final OSProcessHandler handler = super.startProcess();
         handler.setShouldDestroyProcessRecursively(true);
-//        if (scriptRunner.shouldRefreshAfterFinish()) {
-//          handler.addProcessListener(new ProcessAdapter() {
-//            @Override
-//            public void processTerminated(ProcessEvent event) {
-//              if (!ApplicationManager.getApplication().isDisposed()) {
-//                VirtualFileManager.getInstance().asyncRefresh(null);
-//              }
-//            }
-//          });
-//        }
-
         return handler;
       }
 
@@ -130,13 +121,14 @@ public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurat
         params.getClassPath().add(PathUtil.getJarPathForClass(TestRunner.class));
         params.setMainClass(TestRunner.class.getName());
         params.getProgramParametersList().add(getFilePath());
-        params.getProgramParametersList().add("");
+        params.getProgramParametersList().add(defaultPackagesForModule(module));
         
         if(getTestFunction() != null) {
           params.getProgramParametersList().add(getTestFunction());
         }
         return params;
       }
+
     };  
   }
 
@@ -157,7 +149,14 @@ public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurat
     }
     return params;
   }
-  
+
+  private String defaultPackagesForModule(Module module) {
+    if(module.getName().equals("renjin-core")) {
+      return "base";
+    } else {
+      return "";      
+    }
+  }
 
   @Override
   public Collection<Module> getValidModules() {
@@ -168,4 +167,5 @@ public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurat
     }
     return res;
   }
+
 }

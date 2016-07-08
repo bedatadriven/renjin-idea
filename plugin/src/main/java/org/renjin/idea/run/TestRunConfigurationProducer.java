@@ -11,6 +11,9 @@ import org.renjin.idea.psi.RFundef;
 import org.renjin.idea.psi.RVariable;
 
 
+/**
+ * "Produces" a TestRunConfiguration from a source element, like an R script or a function definition.
+ */
 public class TestRunConfigurationProducer extends RunConfigurationProducer<TestRunConfiguration> {
   
   protected TestRunConfigurationProducer() {
