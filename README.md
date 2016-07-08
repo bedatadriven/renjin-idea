@@ -1,4 +1,6 @@
 
+[![Build Status](http://build.renjin.org/job/renjin-idea/badge/icon)](http://build.renjin.org/job/renjin-idea/)
+
 # Renjin IDEA
 
 The very beginnings of an Intellij Plugin for Renjin, mainly
