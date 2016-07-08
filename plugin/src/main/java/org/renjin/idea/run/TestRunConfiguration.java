@@ -8,6 +8,7 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.execution.testframework.sm.runner.SMRunnerConsolePropertiesProvider;
 import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties;
 import com.intellij.execution.util.ScriptFileUtil;
+import com.intellij.openapi.components.PathMacroManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.options.SettingsEditor;
@@ -18,12 +19,16 @@ import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SimpleJavaSdkType;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.roots.ProjectRootManager;
+import com.intellij.openapi.util.InvalidDataException;
+import com.intellij.openapi.util.JDOMExternalizer;
+import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.rt.compiler.JavacRunner;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.PathUtil;
 import com.intellij.util.SystemProperties;
 import com.intellij.util.containers.ContainerUtil;
+import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.renjin.idea.rt.TestRunner;
@@ -89,6 +94,24 @@ public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurat
     return group;
   }
 
+  @Override
+  public void writeExternal(Element element) throws WriteExternalException {
+    super.writeExternal(element);
+    writeModule(element);
+    JDOMExternalizer.write(element, "filePath", ExternalizablePath.urlValue(filePath));
+    JDOMExternalizer.write(element, "testFunction", testFunction);
+  }
+
+
+  @Override
+  public void readExternal(Element element) throws InvalidDataException {
+    PathMacroManager.getInstance(getProject()).expandPaths(element);
+    super.readExternal(element);
+    readModule(element);
+    filePath = ExternalizablePath.localPathValue(JDOMExternalizer.readString(element, "filePath"));
+    testFunction = JDOMExternalizer.readString(element, "testFunction");
+  }
+  
   @Override
   public void checkConfiguration() throws RuntimeConfigurationException {
 
