@@ -1,8 +1,6 @@
 package org.renjin.idea.run;
 
 import com.intellij.application.options.ModulesComboBox;
-import com.intellij.execution.configurations.ConfigurationUtil;
-import com.intellij.execution.ui.ClassBrowser;
 import com.intellij.execution.ui.CommonJavaParametersPanel;
 import com.intellij.execution.ui.ConfigurationModuleSelector;
 import com.intellij.openapi.actionSystem.LangDataKeys;
@@ -16,12 +14,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.JavaCodeFragment;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiMethodUtil;
-import com.intellij.ui.EditorTextFieldWithBrowseButton;
 import com.intellij.ui.PanelWithAnchor;
+import com.intellij.ui.RawCommandLineEditor;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -36,10 +30,10 @@ public class TestRunApplicationConfigurable extends SettingsEditor<TestRunConfig
   private JComponent myAnchor;
   private final ConfigurationModuleSelector myModuleSelector;
 
-  private LabeledComponent<EditorTextFieldWithBrowseButton> myMainClass;
   private JPanel myWholePanel;
   private LabeledComponent<ModulesComboBox> myModule;
   private LabeledComponent<TextFieldWithBrowseButton> myFeatureOrFolder;
+  private LabeledComponent<RawCommandLineEditor> myTestFunction;
   private CommonJavaParametersPanel myCommonProgramParameters;
 
   private Module myModuleContext;
@@ -47,8 +41,6 @@ public class TestRunApplicationConfigurable extends SettingsEditor<TestRunConfig
   public TestRunApplicationConfigurable(Project project) {
     myProject = project;
     myModuleSelector = new ConfigurationModuleSelector(project, myModule.getComponent());
-
-    ClassBrowser.createApplicationClassBrowser(project, myModuleSelector).setField(myMainClass.getComponent());
     myModuleContext = myModuleSelector.getModule();
 
 
@@ -66,7 +58,7 @@ public class TestRunApplicationConfigurable extends SettingsEditor<TestRunConfig
     };
     myFeatureOrFolder.getComponent().getButton().addActionListener(fileToRunActionListener);
 
-    myAnchor = UIUtil.mergeComponentsWithAnchor(myMainClass, myFeatureOrFolder, myModule, myCommonProgramParameters);
+    myAnchor = UIUtil.mergeComponentsWithAnchor(myFeatureOrFolder, myModule, myCommonProgramParameters);
 
   }
 
@@ -75,19 +67,6 @@ public class TestRunApplicationConfigurable extends SettingsEditor<TestRunConfig
   }
 
   private void createUIComponents() {
-    myMainClass = new LabeledComponent<EditorTextFieldWithBrowseButton>();
-    myMainClass.setComponent(new EditorTextFieldWithBrowseButton(myProject, true, new JavaCodeFragment.VisibilityChecker() {
-      @Override
-      public Visibility isDeclarationVisible(PsiElement declaration, PsiElement place) {
-        if (declaration instanceof PsiClass) {
-          final PsiClass aClass = (PsiClass)declaration;
-          if (ConfigurationUtil.MAIN_CLASS.value(aClass) && PsiMethodUtil.findMainMethod(aClass) != null) {
-            return Visibility.VISIBLE;
-          }
-        }
-        return Visibility.NOT_VISIBLE;
-      }
-    }));
   }
 
   @Override
@@ -98,7 +77,6 @@ public class TestRunApplicationConfigurable extends SettingsEditor<TestRunConfig
   @Override
   public void setAnchor(@Nullable JComponent anchor) {
     myAnchor = anchor;
-    myMainClass.setAnchor(anchor);
     myFeatureOrFolder.setAnchor(anchor);
     myModule.setAnchor(anchor);
     myCommonProgramParameters.setAnchor(anchor);
@@ -107,18 +85,18 @@ public class TestRunApplicationConfigurable extends SettingsEditor<TestRunConfig
   @Override
   protected void resetEditorFrom(TestRunConfiguration configuration) {
     myModuleSelector.reset(configuration);
-   // myCommonProgramParameters.reset(configuration);
-
-  //  myMainClass.getComponent().setText(configuration.MAIN_CLASS_NAME);
     myFeatureOrFolder.getComponent().setText(configuration.getFilePath());
+    myTestFunction.getComponent().setText(configuration.getTestFunction());
   }
 
   @Override
   protected void applyEditorTo(TestRunConfiguration configuration) throws ConfigurationException {
-    //myCommonProgramParameters.applyTo(configuration);
+   // myCommonProgramParameters.applyTo(configuration);
     myModuleSelector.applyTo(configuration);
 
     configuration.setFilePath(myFeatureOrFolder.getComponent().getText());
+    configuration.setTestFunction(myTestFunction.getComponent().getText());
+    
     Module selectedModule = (Module)myModule.getComponent().getSelectedItem();
     configuration.setModule(selectedModule);
   }

@@ -3,11 +3,7 @@ package org.renjin.idea.run;
 import com.intellij.execution.application.ApplicationConfigurationType;
 import com.intellij.execution.configuration.ConfigurationFactoryEx;
 import com.intellij.execution.configurations.ConfigurationFactory;
-import com.intellij.execution.configurations.ConfigurationType;
-import com.intellij.execution.configurations.ModuleBasedConfiguration;
-import com.intellij.execution.configurations.RunConfiguration;
-import com.intellij.icons.AllIcons;
-import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.IconLoader;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -16,25 +12,13 @@ import javax.swing.*;
  * RunConfiguration for executing tests in Renjin's conventional format.
  */
 public class TestRunConfigurationType extends ApplicationConfigurationType {
+  
+  public static final TestRunConfigurationType INSTANCE = new TestRunConfigurationType();
 
   private final ConfigurationFactoryEx configurationFactory;
 
   public TestRunConfigurationType() {
-    configurationFactory = new ConfigurationFactoryEx(this) {
-      @Override
-      public Icon getIcon() {
-        return TestRunConfigurationType.this.getIcon();
-      }
-
-      public RunConfiguration createTemplateConfiguration(Project project) {
-        return new TestRunConfiguration(getDisplayName(), project, this);
-      }
-
-      @Override
-      public void onNewConfigurationCreated(@NotNull RunConfiguration configuration) {
-        ((ModuleBasedConfiguration)configuration).onNewConfigurationCreated();
-      }
-    };
+    configurationFactory = new TestRunConfigurationFactory(this);
   }
 
   @Override
@@ -50,7 +34,7 @@ public class TestRunConfigurationType extends ApplicationConfigurationType {
 
   @Override
   public Icon getIcon() {
-    return AllIcons.General.Information;
+    return IconLoader.findIcon("/icons/test.png");
   }
 
 
@@ -64,5 +48,9 @@ public class TestRunConfigurationType extends ApplicationConfigurationType {
   @Override
   public ConfigurationFactory[] getConfigurationFactories() {
     return new ConfigurationFactory[]{configurationFactory};
+  }
+
+  public ConfigurationFactory getFactory() {
+    return configurationFactory;
   }
 }

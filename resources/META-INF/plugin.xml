@@ -23,8 +23,15 @@
   -->
 
   <extensions defaultExtensionNs="com.intellij">
-    <configurationType implementation="org.renjin.idea.run.TestRunConfigurationType"/>
+
+    <!-- Language -->
     <fileTypeFactory implementation="org.renjin.idea.lang.RFileTypeFactory"/>
+    <lang.parserDefinition language="R" implementationClass="org.renjin.idea.lang.RParserDefinition"/>
+    
+    <!-- Running Tests -->
+    <configurationType implementation="org.renjin.idea.run.TestRunConfigurationType"/>
+    <runConfigurationProducer implementation="org.renjin.idea.run.TestRunConfigurationProducer"/>
+
   </extensions>
 
   <actions>

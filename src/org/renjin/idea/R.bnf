@@ -1,0 +1,178 @@
+{
+  classHeader="header.txt"
+  parserClass="org.renjin.idea.lang.parser.RParser"
+  parserUtilClass="org.renjin.idea.lang.parser.GrammarParserUtil"
+
+  implements="org.renjin.idea.psi.RCompositeElement"
+  extends="org.renjin.idea.psi.impl.RCompositeElementImpl"
+
+  psiClassPrefix="R"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.renjin.idea.psi"
+  psiImplPackage="org.renjin.idea.psi.impl"
+
+  elementTypeHolderClass="org.renjin.idea.psi.RTypes"
+  elementTypePrefix="R_"
+  elementTypeClass="org.renjin.idea.psi.RCompositeElementType"
+  tokenTypeClass="org.renjin.idea.lang.lexer.RTokenType"
+
+
+
+  // tokens as defined in original_r_grammar.y
+// onthefly STR_CONST
+// onthefly NUM_CONST
+// onthefly NULL_CONST
+// onthefly SYMBOL
+// onthefly FUNCTION
+LEFT_ASSIGN="<-"
+EQ_ASSIGN="="
+RIGHT_ASSIGN="->"
+GLOBAL_LEFT_ASSIGN="<<-"
+GLOBAL_RIGHT_ASSIGN="->>"
+LBB="[["
+RBB="]]"
+// onthefly FOR
+// onthefly IN
+// onthefly IF
+// onthefly ELSE
+// onthefly WHILE
+// onthefly NEXT
+// onthefly BREAK
+// onthefly REPEAT
+GT=">"
+GE=">="
+LT="<"
+LE="<="
+EQ="=="
+NE="!="
+AND="&"
+OR="|"
+AND2="&&"
+OR2="||"
+NS_GET="::"
+NS_GET_INT=":::"
+// onthefly COMMENT
+// onthefly SPACES
+// onthefly ROXYGEN_COMMENT
+SYMBOL_FORMALS="..."
+// just the = with a function definition, there should be part of a parser rule EQ_FORMALS
+// see example parsing ::= the name of a named argument in a function call EQ_SUB
+// see example parsing ::= the = of a named argument in a function call SYMBOL_SUB
+// SYMBOL_FUNCTION_CALL the name of the function of a function call
+// ?? SYMBOL_PACKAGE
+// ?? COLON_ASSIGN
+SLOT="@"
+
+// additional tokens because of grammar def
+SEMICOLON=";"
+LEFT_BRACE="{"
+RIGHT_BRACE="}"
+LEFT_BRACKET="["
+RIGHT_BRACKET="]"
+LEFT_PAREN="("
+RIGHT_PAREN=")"
+EOL="EOL"
+
+COLON=":"
+COMMA=","
+SEMICOLON=";"
+DOT="."
+TILDE="~"
+
+LIST_SUBSET="$"
+//VARARGS="..."
+ARITH_PLUS="+"
+ARITH_MINUS="-"
+NEGATION="!"
+QUESTION="?"
+ARITH_MULT="*"
+ARITH_DIV="/"
+ARITH_MOD="%"
+ARITH_EXPONENTIAION="^"
+//onthefly ARITH_MISC
+
+//  named="org.renjin.idea.psi.RNamedElement"
+//  namedImpl="org.renjin.idea.psi.impl.RNamedElementImpl"
+  mixin("string_literal")="org.renjin.idea.psi.impl.RStringImpl"
+  mixin("variable")="org.renjin.idea.psi.impl.RVarImpl"
+
+}
+
+
+external grammar ::= document
+
+// document is necessary because grammar = command* creates incompilable parser code (not clear why)
+document ::= command*
+command ::= (EOL | COMMENT | section |  expr_or_assign ';'?)
+expr_or_assign ::= EOL* ( expr [(EQ_ASSIGN | LEFT_ASSIGN | RIGHT_ASSIGN | GLOBAL_RIGHT_ASSIGN | GLOBAL_LEFT_ASSIGN) expr_or_assign] )
+
+section ::= SECTION_COMMENT {extends="org.renjin.idea.psi.impl.AbstractRSection"}
+
+
+expr ::= EOL* (
+    NUM_CONST |
+    NULL_CONST |
+    SYMBOL_FORMALS |
+    string_literal | // todo remove this as it is redundant with the last line optionalized with ()?
+    funcall |
+    variable (NS_GET SYMBOL | NS_GET STR_CONST | NS_GET_INT SYMBOL | NS_GET_INT STR_CONST)? |
+    '{' exprlist '}' |
+    '(' expr_or_assign ')' |
+    '-' expr |
+    '+' expr |
+    '!' expr |
+    '~' expr |
+    '?' expr |
+    fundef |
+    IF cond expr_or_assign [ELSE expr_or_assign] |
+    FOR forcond expr_or_assign |
+    WHILE cond expr_or_assign |
+    REPEAT expr_or_assign |
+    NEXT |
+    BREAK) // end of first half
+    (( ':' | '+' | '-' | '*' | '/' | '^' | ARITH_MISC | '%' | '~' | '?' | LT | LE | EQ | NE | GE | GT | AND | OR | AND2 | OR2 | GLOBAL_LEFT_ASSIGN | GLOBAL_RIGHT_ASSIGN | LEFT_ASSIGN | RIGHT_ASSIGN ) expr |
+    '(' sublist? ')' |
+    '[[' sublist ']]' |
+    '[' ','? sublist ','? ']' |
+    '$' ( SYMBOL | STR_CONST) |
+    '@' ( SYMBOL | STR_CONST )
+    )*
+//{recoverUntil="expr_recover_until"}
+//private expr_recover_until::=!(';' | 'EOL');
+
+exprlist ::= [(expr_or_assign) (';' expr_or_assign | EOL expr_or_assign |';' |  EOL)*] EOL* ;
+
+string_literal ::= STR_CONST //{extends="" implements=""}
+
+variable ::= SYMBOL // {extends=namedImpl implements=named};
+
+cond ::= '(' expr ')'
+
+forcond ::= '(' variable IN expr ')'
+
+fundef ::= FUNCTION '(' fundef_args? ')'  expr_or_assign;
+
+// todo avoid that the parser accepts several symbol formals
+// called formlist in th r grammar definition
+fundef_args ::= fd_argument (EOL? ',' EOL? fd_argument)*
+
+// called form in th r grammar definition
+fd_argument ::=  SYMBOL '=' expr
+        | SYMBOL
+        | STR_CONST '=' expr
+        | STR_CONST
+        | SYMBOL_FORMALS ;
+
+// todo variable is wrong here
+funcall ::= variable '(' EOL? sublist? ')' {extends="org.renjin.idea.psi.impl.AbstractRFunCall" implements="org.renjin.idea.psi.RNamedElement"};
+
+
+sublist ::=  sub (EOL? ',' EOL? sub)*
+
+sub ::= EOL*
+    (SYMBOL '=' expr
+//   | STR_CONST '=' expr
+//   | NULL_CONST '=' expr
+    | STR_CONST EQ_ASSIGN expr
+    | SYMBOL_FORMALS
+   | expr ) EOL* ;
