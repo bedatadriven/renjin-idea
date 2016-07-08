@@ -6,6 +6,11 @@
 The very beginnings of an Intellij Plugin for Renjin, mainly
 intended to support Renjin development itself at this point. 
 
+## Installation
+
+Download the latest build of [renjin-idea.zip](http://build.renjin.org/job/renjin-idea/lastSuccessfulBuild/artifact/plugin/build/distributions/renjin-idea.zip) from build.renjin.org.
+
+
 ## Features
 
 ### Running Tests
@@ -30,6 +35,9 @@ allow you to run and debug either a whole test file or a single test.
 
 You should be able to right-click on the function body of `test.rep` for
 example, and choose "Run test.rep()"
+
+If you debug the tests, breakpoints in Renjin's Java source will be hit.
+
 
 ## Credits
 
