@@ -9,7 +9,5 @@ dependencies {
 
 
 intellij {
-//    version '145.1617'
-//    plugins 'coverage' //Bundled plugin dependencies
-    pluginName 'Renjin IDE'
+    pluginName 'renjin-idea'
 }
