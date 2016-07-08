@@ -4,9 +4,7 @@ import org.renjin.eval.EvalException;
 import org.renjin.eval.Session;
 import org.renjin.eval.SessionBuilder;
 import org.renjin.parser.RParser;
-import org.renjin.sexp.FunctionCall;
-import org.renjin.sexp.SEXP;
-import org.renjin.sexp.Symbol;
+import org.renjin.sexp.*;
 
 import java.io.*;
 import java.util.Arrays;
@@ -44,7 +42,23 @@ public class TestRunner {
     
     if(testFunction != null) {
       runTest(session, testFunction);
+    } else {
+      runAllTests(session);
     }
+  }
+
+  private static void runAllTests(Session session) {
+    for (Symbol symbol : session.getGlobalEnvironment().getSymbolNames()) {
+      if(symbol.getPrintName().startsWith("test.")) {
+        SEXP value = session.getGlobalEnvironment().getVariable(symbol);
+        if(value instanceof Closure) {
+          Closure testFunction = (Closure) value;
+          if(testFunction.getFormals().length() == 0) {
+            runTest(session, symbol.getPrintName());
+          }
+        }
+      }
+    } 
   }
 
   private static void runTest(Session session, String testFunction) {
@@ -56,6 +70,7 @@ public class TestRunner {
       System.out.println("PASSED");
     } else {
       System.out.println("FAILED");
+      System.out.print(result.getStackTrace());
     }
   }
 
@@ -66,6 +81,7 @@ public class TestRunner {
       
     } catch (EvalException e) {
       StringWriter stringWriter = new StringWriter();
+      stringWriter.append("ERROR: ").append(e.getMessage());
       e.printRStackTrace(new PrintWriter(stringWriter));
       return new TestResult(false, null, stringWriter.toString());
     }
