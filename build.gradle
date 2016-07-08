@@ -1,0 +1,16 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id "org.jetbrains.intellij" version "0.0.20"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
+}
+
+group 'org.renjin'
+version '0.1'

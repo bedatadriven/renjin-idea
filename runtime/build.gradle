@@ -1,0 +1,29 @@
+
+apply plugin: 'idea'
+apply plugin: 'java'
+
+
+repositories {
+    maven { url "https://nexus.bedatadriven.com/content/groups/public" }
+}
+
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+}
+
+dependencies {
+    provided "org.renjin:renjin-core:0.8.2137";
+}
+
+idea {
+    module {
+        scopes.PROVIDED.plus += [ configurations.provided ]
+    }
+}

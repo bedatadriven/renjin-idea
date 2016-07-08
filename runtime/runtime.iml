@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module relativePaths="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true" LANGUAGE_LEVEL="JDK_1_8">
+    <exclude-output/>
+    <orderEntry type="inheritedJdk"/>
+    <content url="file://$MODULE_DIR$/">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false"/>
+      <excludeFolder url="file://$MODULE_DIR$/build"/>
+      <excludeFolder url="file://$MODULE_DIR$/.gradle"/>
+    </content>
+    <orderEntry type="sourceFolder" forTests="false"/>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.renjin/renjin-core/0.8.2137/5cb00b0a5ae529d061c3651791f5bb49d6c32a89/renjin-core-0.8.2137.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math/2.2/4877b85d388275f994a5cfc7eceb73a8045d3006/commons-math-2.2.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math/2.2/61dc823ea6dca58ce9aa8badc3cfcee057689e73/commons-math-2.2-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.renjin/gcc-runtime/0.8.2137/efeec1f8eee7aaea357164027b1353b83acb7d3e/gcc-runtime-0.8.2137.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.netlib/netlib-java/0.9.3-renjin-patched-2/5055e087e66f91b55cb54a834e2cf39171e8b7a6/netlib-java-0.9.3-renjin-patched-2.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-vfs2/2.0/b5af3b9c96b060d77c68fa5ac9384b402dd58013/commons-vfs2-2.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-vfs2/2.0/c29b15a44ebae8501f0e5a892736b27857a4f968/commons-vfs2-2.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.4.1/b02e84a993d88568417536240e970c4b809126fd/commons-compress-1.4.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.4.1/277d39267403965a7a192474794a29bac6760a25/commons-compress-1.4.1-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.0/752c0fe8a5b2d6704c9d9d6f06d9abdcacf4045d/joda-time-2.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.0/409a13768c666761c9efb41560e75464cbcd0b5b/joda-time-2.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/edu.emory.mathcs/jtransforms/2.4/9e52124b670340d47844a734e36765c3bc11b7f3/jtransforms-2.4.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.renjin/renjin-asm/5.0.4/7a01a1f89b681c9278bfcf7a69cea7c72740cfc4/renjin-asm-5.0.4.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.renjin/renjin-asm/5.0.4/e9f68e5c607ba55962c6c9be1430ed3c5c3f7c7f/renjin-asm-5.0.4-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/17.0/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/guava-17.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/17.0/7ca0efbeb87ca845b5d7a0ac9c21a4b7b95f7b28/guava-17.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/com.sun.codemodel/codemodel/2.6/cde4647fcebedb3663bccc79e21789e8e6755a19/codemodel-2.6.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/com.sun.codemodel/codemodel/2.6/d24b0e6744bd8f38b36cb77f8ab7b2341590af93/codemodel-2.6-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.netlib/lapack/0.8/bbdaf789574269258adc83c9f1c9b9fd097b5893/lapack-0.8.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.netlib/f2jutil/0.8/39062b5a9a4a38fd0462e7aee5a543c9889259a9/f2jutil-0.8.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.netlib/xerbla/0.8/6efc45d8f48bb399d65ecb9001b1bba481de2ede/xerbla-0.8.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.netlib/blas/0.8/cde37b495d89b906fe9ba73cd3a739841c67adff/blas-0.8.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.1/5043bfebc3db072ed80fbd362e7caf00e885d8ae/commons-logging-1.1.1.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.1/f3f156cbff0e0fb0d64bfce31a352cce4a33bc19/commons-logging-1.1.1-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.maven.scm/maven-scm-api/1.4/e294693ce217bd6f470b728127854e6ca787fd29/maven-scm-api-1.4.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.maven.scm/maven-scm-api/1.4/d6d12c73b996ffb43fa57d40fc5ebb48d237304d/maven-scm-api-1.4-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.maven.scm/maven-scm-provider-svnexe/1.4/b3213b40157b701ba079b738baac391e41418c18/maven-scm-provider-svnexe-1.4.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.maven.scm/maven-scm-provider-svnexe/1.4/15a971532cb654117767b4285c6d0ad8d7006ca5/maven-scm-provider-svnexe-1.4-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.tukaani/xz/1.0/ecff5cb8b1189514c9d1d8d68eb77ac372e000c9/xz-1.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.tukaani/xz/1.0/f95e32a5d2dd8da643c4419814415b9704312993/xz-1.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/1.5.6/8fb6b798a4036048b3005e058553bf21a87802ed/plexus-utils-1.5.6.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/1.5.6/f73353c888b7c6f938ddc17423087aba4f50d33e/plexus-utils-1.5.6-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.maven.scm/maven-scm-provider-svn-commons/1.4/54bc1dc24c5d205b4d251a83f4ea63808c21a628/maven-scm-provider-svn-commons-1.4.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/org.apache.maven.scm/maven-scm-provider-svn-commons/1.4/bc76e700d77e94f55bbb2fa90c5ba8718d6652dc/maven-scm-provider-svn-commons-1.4-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/regexp/regexp/1.3/973df2b78b67bcd3144c3dbbb88da691065a3f8d/regexp-1.3.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///home/alex/.gradle/caches/modules-2/files-2.1/regexp/regexp/1.3/51ba0f7629a69bf12d31177f409a78672069f632/regexp-1.3-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+  <component name="ModuleRootManager"/>
+</module>

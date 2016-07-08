@@ -1,0 +1,5 @@
+
+rootProject.name = 'renjin-idea'
+
+include 'plugin'
+include 'runtime'

@@ -17,11 +17,14 @@ import com.intellij.openapi.projectRoots.SimpleJavaSdkType;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.rt.compiler.JavacRunner;
 import com.intellij.util.ObjectUtils;
+import com.intellij.util.PathUtil;
 import com.intellij.util.SystemProperties;
 import com.intellij.util.containers.ContainerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.renjin.idea.rt.TestRunner;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -124,9 +127,14 @@ public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurat
       @Override
       protected JavaParameters createJavaParameters() throws ExecutionException {
         JavaParameters params = createJavaParametersWithSdk(module);
-        params.setMainClass("org.renjin.cli.Main");
-        params.getProgramParametersList().add("-f");
+        params.getClassPath().add(PathUtil.getJarPathForClass(TestRunner.class));
+        params.setMainClass(TestRunner.class.getName());
         params.getProgramParametersList().add(getFilePath());
+        params.getProgramParametersList().add("");
+        
+        if(getTestFunction() != null) {
+          params.getProgramParametersList().add(getTestFunction());
+        }
         return params;
       }
     };  
