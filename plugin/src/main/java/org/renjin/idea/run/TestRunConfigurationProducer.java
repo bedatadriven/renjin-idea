@@ -15,41 +15,67 @@ import org.renjin.idea.psi.RVariable;
  * "Produces" a TestRunConfiguration from a source element, like an R script or a function definition.
  */
 public class TestRunConfigurationProducer extends RunConfigurationProducer<TestRunConfiguration> {
-  
+
   protected TestRunConfigurationProducer() {
     super(TestRunConfigurationType.INSTANCE.getFactory());
   }
 
   @Override
-  protected boolean setupConfigurationFromContext(TestRunConfiguration configuration, 
-                                                  ConfigurationContext context, 
+  protected boolean setupConfigurationFromContext(TestRunConfiguration configuration,
+                                                  ConfigurationContext context,
                                                   Ref<PsiElement> sourceElement) {
 
-    PsiFile containingFile = sourceElement.get().getContainingFile();
-    if(containingFile instanceof RFile) {
-      RFile file = (RFile) containingFile;
-      VirtualFile scriptFile = file.getOriginalFile().getVirtualFile();
-      if(scriptFile == null) {
-        return false;
-      }
-      if(!scriptFile.isInLocalFileSystem()) {
-        return false;
-      }
-
-      String functionName = findFunctionName(sourceElement.get());
-      if(functionName != null) {
-        configuration.setName(functionName + "()");
-        configuration.setTestFunction(functionName);
-      } else {
-        configuration.setName(file.getName());
-        configuration.setTestFunction(null);
-      }
-      configuration.setFilePath(scriptFile.getPath());
-      configuration.setTestFunction(functionName);
-      configuration.setModule(context.getModule());
-      return true;
+    PsiElement element = context.getPsiLocation();
+    if (element == null) {
+      return false;
     }
-    return false;
+    String scriptPath = scriptPathFrom(context);
+    if(scriptPath == null) {
+      return false;
+    }
+    
+    String functionName = findFunctionName(element);
+    if (functionName != null) {
+      configuration.setName(functionName + "()");
+      configuration.setTestFunction(functionName);
+    } else {
+      configuration.setName(scriptName(scriptPath));
+      configuration.setTestFunction(null);
+    }
+    configuration.setFilePath(scriptPath);
+    configuration.setTestFunction(functionName);
+    configuration.setModule(context.getModule());
+    return true;
+  }
+
+
+  private String scriptPathFrom(ConfigurationContext context) {
+    PsiElement element = context.getPsiLocation();
+    if (element == null) {
+      return null;
+    }
+    PsiFile containingFile = element.getContainingFile();
+    if (!(containingFile instanceof RFile)) {
+      return null;
+    }
+    RFile file = (RFile) containingFile;
+    VirtualFile scriptFile = file.getOriginalFile().getVirtualFile();
+    if (scriptFile == null) {
+      return null;
+    }
+    if (!scriptFile.isInLocalFileSystem()) {
+      return null;
+    }
+    return scriptFile.getPath();
+  }
+  
+  private String scriptName(String path) {
+    int slash = path.lastIndexOf('/');
+    if(slash == -1) {
+      return path;
+    } else {
+      return path.substring(slash+1);
+    }
   }
 
   private String findAssignmentTarget(RFundef fundef) {
@@ -75,6 +101,20 @@ public class TestRunConfigurationProducer extends RunConfigurationProducer<TestR
 
   @Override
   public boolean isConfigurationFromContext(TestRunConfiguration configuration, ConfigurationContext context) {
-    return false;
+
+    String scriptPath = scriptPathFrom(context);
+    if(scriptPath == null) {
+      return false;
+    }
+    if(configuration.getFilePath() == null) {
+      return false;
+    }
+    String functionName = findFunctionName(context.getPsiLocation());
+    if ((functionName == null && configuration.getTestFunction() != null) ||
+        (functionName != null && !functionName.equals(configuration.getTestFunction()))) {
+      return false;
+    }
+    
+    return configuration.getFilePath().equals(scriptPath);
   }
 }
