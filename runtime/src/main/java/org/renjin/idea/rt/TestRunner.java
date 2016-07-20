@@ -4,7 +4,10 @@ import org.renjin.eval.EvalException;
 import org.renjin.eval.Session;
 import org.renjin.eval.SessionBuilder;
 import org.renjin.parser.RParser;
-import org.renjin.sexp.*;
+import org.renjin.sexp.Closure;
+import org.renjin.sexp.FunctionCall;
+import org.renjin.sexp.SEXP;
+import org.renjin.sexp.Symbol;
 
 import java.io.*;
 import java.util.Arrays;
@@ -34,10 +37,19 @@ public class TestRunner {
     }
 
     SessionBuilder builder = new SessionBuilder();
-    if(!defaultPackages.equals("base")) {
+    if(defaultPackages.isEmpty()) {
       builder.withDefaultPackages();
     }
     Session session = builder.build();
+    
+    if(!defaultPackages.isEmpty()) {
+      for (String packageName : defaultPackages.split("\\s*,\\s*")) {
+        if(!packageName.equals("base")) {
+          session.getTopLevelContext().evaluate(FunctionCall.newCall(Symbol.get("library"), Symbol.get(packageName)));
+        }
+      }
+    }
+
     session.getTopLevelContext().evaluate(testScript);
     
     if(testFunction != null) {

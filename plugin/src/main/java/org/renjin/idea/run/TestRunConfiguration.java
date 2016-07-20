@@ -5,8 +5,6 @@ import com.intellij.execution.*;
 import com.intellij.execution.configurations.*;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.execution.testframework.sm.runner.SMRunnerConsolePropertiesProvider;
-import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties;
 import com.intellij.execution.util.ScriptFileUtil;
 import com.intellij.openapi.components.PathMacroManager;
 import com.intellij.openapi.module.Module;
@@ -23,7 +21,6 @@ import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.JDOMExternalizer;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.rt.compiler.JavacRunner;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.PathUtil;
 import com.intellij.util.SystemProperties;
@@ -174,11 +171,19 @@ public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurat
   }
 
   private String defaultPackagesForModule(Module module) {
+    module.getModuleRuntimeScope(true);
     if(module.getName().equals("renjin-core")) {
       return "base";
-    } else {
-      return "";      
+    } else if(module.getName().equals("stats")) {
+      return "stats";
     }
+
+//    GlobalSearchScope scope = module.getModuleRuntimeScope(true);
+//    VirtualFile pomXml = scope.getProject().getWorkspaceFile().findChild("pom.xml");
+//    
+    return "";
+    
+    
   }
 
   @Override
