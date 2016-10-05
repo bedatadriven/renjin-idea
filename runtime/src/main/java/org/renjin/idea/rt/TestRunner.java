@@ -50,8 +50,16 @@ public class TestRunner {
       }
     }
 
-    session.getTopLevelContext().evaluate(testScript);
-    
+    try {
+      session.getTopLevelContext().evaluate(testScript);
+    } catch(Exception e) {
+      if(e instanceof EvalException) {
+        ((EvalException) e).printRStackTrace(System.out);
+      }
+      e.printStackTrace();
+      System.exit(-1);
+    }
+
     if(testFunction != null) {
       runTest(session, testFunction);
     } else {
