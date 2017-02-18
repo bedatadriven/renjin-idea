@@ -1,6 +1,5 @@
 package org.renjin.idea.rt;
 
-import com.google.common.base.Strings;
 import org.renjin.eval.EvalException;
 import org.renjin.eval.Session;
 import org.renjin.eval.SessionBuilder;
@@ -11,7 +10,6 @@ import org.renjin.sexp.SEXP;
 import org.renjin.sexp.Symbol;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class TestRunner {
 
     SessionBuilder builder = new SessionBuilder();
     List<String> packagesToLoad;
-    if(Strings.isNullOrEmpty(defaultPackages)) {
+    if(defaultPackages == null || defaultPackages.isEmpty()) {
       packagesToLoad = Session.DEFAULT_PACKAGES;
     } else {
       packagesToLoad = Arrays.asList(defaultPackages.split("\\s*,\\s*"));
