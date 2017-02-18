@@ -45,7 +45,11 @@ public class TestRunner {
     if(!defaultPackages.isEmpty()) {
       for (String packageName : defaultPackages.split("\\s*,\\s*")) {
         if(!packageName.equals("base")) {
-          session.getTopLevelContext().evaluate(FunctionCall.newCall(Symbol.get("library"), Symbol.get(packageName)));
+          try {
+            session.getTopLevelContext().evaluate(FunctionCall.newCall(Symbol.get("library"), Symbol.get(packageName)));
+          } catch (EvalException e) {
+            System.err.println("WARNING: default package \"" + packageName + "\" could not be loaded: " + e.getMessage());
+          }
         }
       }
     }
