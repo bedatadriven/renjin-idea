@@ -1,5 +1,6 @@
 package org.renjin.idea.rt;
 
+import com.google.common.base.Strings;
 import org.renjin.eval.EvalException;
 import org.renjin.eval.Session;
 import org.renjin.eval.SessionBuilder;
@@ -10,7 +11,9 @@ import org.renjin.sexp.SEXP;
 import org.renjin.sexp.Symbol;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Runs tests and reports results
@@ -37,13 +40,16 @@ public class TestRunner {
     }
 
     SessionBuilder builder = new SessionBuilder();
-    if(defaultPackages.isEmpty()) {
-      builder.withDefaultPackages();
+    List<String> packagesToLoad;
+    if(Strings.isNullOrEmpty(defaultPackages)) {
+      packagesToLoad = Session.DEFAULT_PACKAGES;
+    } else {
+      packagesToLoad = Arrays.asList(defaultPackages.split("\\s*,\\s*"));
     }
     Session session = builder.build();
     
     if(!defaultPackages.isEmpty()) {
-      for (String packageName : defaultPackages.split("\\s*,\\s*")) {
+      for (String packageName : packagesToLoad) {
         if(!packageName.equals("base")) {
           try {
             session.getTopLevelContext().evaluate(FunctionCall.newCall(Symbol.get("library"), Symbol.get(packageName)));
