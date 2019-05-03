@@ -9,4 +9,4 @@ plugins {
 }
 
 group 'org.renjin'
-version '0.1'
+version '1.1'
