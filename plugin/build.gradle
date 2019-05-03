@@ -1,13 +1,22 @@
 
-apply plugin: 'idea'
-apply plugin: 'org.jetbrains.intellij'
-apply plugin: 'java'
+
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version "0.4.8"
+}
 
 dependencies {
     compile project(':runtime')
 }
 
-
 intellij {
-    pluginName 'renjin-idea'
+    pluginName = 'renjin-idea'
+}
+
+buildPlugin {
+    archiveBaseName = 'renjin-idea'
+
+    doFirst {
+        System.out.println("archiveFileName = ${archiveFileName.get()}")
+    }
 }
