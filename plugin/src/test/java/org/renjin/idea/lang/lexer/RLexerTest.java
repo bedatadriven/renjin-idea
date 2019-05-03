@@ -86,7 +86,13 @@ public class RLexerTest {
         R_NUM_CONST
     }, true);
   }
-  
+
+  @Test
+  public void escapedSymbol() {
+    testTokenization("`[[`", new IElementType[] {
+        R_SYMBOL
+    }, true);
+  }
 
   @Test
   public void testCtrlCharacterString() {

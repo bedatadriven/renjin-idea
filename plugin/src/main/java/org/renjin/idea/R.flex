@@ -44,7 +44,7 @@ COMMENT = "#"[^\r\n]*
 /* A identifier integer is a word beginning a letter between A and Z, a and z,
 or an underscore followed by zero or more letters between A and Z, a and z,
 zero and nine, or an underscore. */
-SYMBOL = [A-Za-z.][A-Za-z_0-9._]*
+SYMBOL = ([A-Za-z.][A-Za-z_0-9._]*|`[^`\r\n]+`)
 
 
 /* A literal integer is is a number beginning with a number between one and nine
