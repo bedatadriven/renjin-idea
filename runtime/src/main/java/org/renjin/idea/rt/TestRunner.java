@@ -46,14 +46,12 @@ public class TestRunner {
     }
     Session session = builder.build();
     
-    if(!defaultPackages.isEmpty()) {
-      for (String packageName : packagesToLoad) {
-        if(!packageName.equals("base")) {
-          try {
-            session.getTopLevelContext().evaluate(FunctionCall.newCall(Symbol.get("library"), Symbol.get(packageName)));
-          } catch (EvalException e) {
-            System.err.println("WARNING: default package \"" + packageName + "\" could not be loaded: " + e.getMessage());
-          }
+    for (String packageName : packagesToLoad) {
+      if(!packageName.equals("base")) {
+        try {
+          session.getTopLevelContext().evaluate(FunctionCall.newCall(Symbol.get("library"), Symbol.get(packageName)));
+        } catch (EvalException e) {
+          System.err.println("WARNING: default package \"" + packageName + "\" could not be loaded: " + e.getMessage());
         }
       }
     }

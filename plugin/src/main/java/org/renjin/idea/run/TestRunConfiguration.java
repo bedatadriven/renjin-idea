@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 
-public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurationModule> {
+public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurationModule, Element> {
 
   /**
    * Either the path to an R script containing test functions, or a directory in which test scripts are 
@@ -152,7 +152,7 @@ public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurat
     };  
   }
 
-  public static JavaParameters createJavaParametersWithSdk(@Nullable Module module) throws CantRunException {
+  public static JavaParameters  createJavaParametersWithSdk(@Nullable Module module) throws CantRunException {
     JavaParameters params = new JavaParameters();
     params.setCharset(null);
 

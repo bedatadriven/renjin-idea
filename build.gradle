@@ -5,11 +5,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.0.20"
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.14'
+    id "org.jetbrains.intellij" version "0.4.8"
 }
 
 group 'org.renjin'
