@@ -10,7 +10,9 @@ dependencies {
 }
 
 intellij {
-    pluginName = 'renjin-idea'
+    version 'IC-2018.3'
+    pluginName 'renjin-idea'
+    updateSinceUntilBuild false
 }
 
 buildPlugin {
