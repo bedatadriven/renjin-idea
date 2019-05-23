@@ -167,7 +167,7 @@ fd_argument ::=  SYMBOL '=' expr
 funcall ::= variable '(' EOL? sublist? ')' {extends="org.renjin.idea.psi.impl.AbstractRFunCall" implements="org.renjin.idea.psi.RNamedElement"};
 
 
-sublist ::=  sub (EOL? ',' EOL? sub)*
+sublist ::=  sub (EOL? ',' EOL? sub?)*
 
 sub ::= EOL*
     (SYMBOL '=' expr
