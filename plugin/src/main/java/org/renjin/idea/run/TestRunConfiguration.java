@@ -142,8 +142,9 @@ public class TestRunConfiguration extends ModuleBasedConfiguration<RunConfigurat
         params.setMainClass(TestRunner.class.getName());
         params.getProgramParametersList().add(getFilePath());
         params.getProgramParametersList().add(defaultPackagesForModule(module));
+        params.setWorkingDirectory(getScriptFile().getParent().getPath());
         
-        if(getTestFunction() != null) {
+        if(getTestFunction() != null && !getTestFunction().isEmpty()) {
           params.getProgramParametersList().add(getTestFunction());
         }
         return params;
