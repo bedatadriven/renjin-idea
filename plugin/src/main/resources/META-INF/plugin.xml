@@ -34,6 +34,8 @@
     <configurationType implementation="org.renjin.idea.run.TestRunConfigurationType"/>
     <runConfigurationProducer implementation="org.renjin.idea.run.TestRunConfigurationProducer"/>
 
+    <debugger.javaDebugAware implementation="org.renjin.idea.debugger.GccDebugAware"/>
+    <debugger.positionManagerFactory implementation="org.renjin.idea.debugger.GccBridgePositionManagerFactory"/>
   </extensions>
 
   <actions>
